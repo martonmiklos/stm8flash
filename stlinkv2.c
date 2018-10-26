@@ -25,9 +25,12 @@ int stlink2_write_and_read_byte(programmer_t *pgm, unsigned char byte, unsigned 
 
 static unsigned int msg_transfer(programmer_t *pgm, unsigned char *buf, unsigned int length, int direction) {
 	int bytes_transferred;
-	int ep = (direction == LIBUSB_ENDPOINT_OUT) ? 2 : 1;
+    int ep = (direction == LIBUSB_ENDPOINT_OUT) ? 2 : 1;
+    if (pgm->type == STLinkV3)
+        ep = 1;
 	libusb_bulk_transfer(pgm->dev_handle, ep | direction, buf, length, &bytes_transferred, 0);
-	if(bytes_transferred != length) ERROR2("IO error: expected %d bytes but %d bytes transferred\n", length, bytes_transferred);
+    if(bytes_transferred != length)
+        ERROR2("IO error: expected %d bytes but %d bytes transferred\n", length, bytes_transferred);
 	return bytes_transferred;
 }
 

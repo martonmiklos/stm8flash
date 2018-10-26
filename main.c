@@ -28,7 +28,9 @@ extern int optreset;
 #define VERSION_NOTES ""
 
 programmer_t pgms[] = {
-	{ 	"stlink",
+    {
+        "stlink",
+        STLinkV1,
 		0x0483, // USB vid
 		0x3744, // USB pid
 		stlink_open,
@@ -39,6 +41,7 @@ programmer_t pgms[] = {
 	},
 	{
 		"stlinkv2",
+        STLinkV2,
 		0x0483,
 		0x3748,
 		stlink2_open,
@@ -47,6 +50,17 @@ programmer_t pgms[] = {
 		stlink2_swim_read_range,
 		stlink2_swim_write_range,
 	},
+    {
+        "stlinkv3",
+        STLinkV3,
+        0x0483,
+        0x374f,
+        stlink2_open,
+        stlink_close,
+        stlink2_srst,
+        stlink2_swim_read_range,
+        stlink2_swim_write_range,
+    },
 	{ NULL },
 };
 

@@ -26,9 +26,16 @@ typedef enum {
     UNLOCK
 } action_t;
 
+typedef enum {
+    STLinkV1,
+    STLinkV2,
+    STLinkV3
+} programmer_type_t;
+
 typedef struct programmer_s {
 	/* Info */
 	const char *name;
+    programmer_type_t type;
 	unsigned int usb_vid;
 	unsigned int usb_pid;
 
